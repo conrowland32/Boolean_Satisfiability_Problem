@@ -20,10 +20,6 @@ class Node:
             self.var_chosen = var_chosen
             self.val_chosen = val_chosen
 
-            print(self.unassigned, len(self.unassigned))
-            print(self.assigned, len(self.assigned))
-            print()
-
             # Forward-Check remaining variables
             self.forward_check(clauses)
 
@@ -48,6 +44,7 @@ class Node:
             unassigned_var = None
             any_already_true = False
             if clause_size - vars_assigned == 1:
+                # print('-----\nHERE: ', clause, '\n-----')
                 for clause_var in clause:
                     if str(abs(clause_var)) not in self.assigned:
                         unassigned_var = clause_var

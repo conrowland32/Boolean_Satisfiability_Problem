@@ -17,9 +17,7 @@ def main():
 
     # Get input from file
     input_file = open("../assignment/example" + sys.argv[1] + ".txt", "r")
-    first_line = input_file.readline().split()
-    number_vars = first_line[2]
-    number_clause = first_line[3]
+    input_file.readline()
 
     # Build starting variable dictionary
     start_dict = dict()
@@ -36,10 +34,12 @@ def main():
     # Create first search node
     start_node = Node(start_dict, dict())
     finish_node = backtracking_search(start_node)
-    print(finish_node)
-    # print('----- FINISHING NODE FOUND -----')
-    # print(finish_node.assigned)
-    # print('-----                      -----')
+    if finish_node is None:
+        print('\n----- NO SOLUTION -----')
+        sys.exit()
+    print('----- FINISHING NODE FOUND -----')
+    print(finish_node.assigned)
+    print('-----                      -----')
 
 
 if __name__ == "__main__":

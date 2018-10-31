@@ -1,5 +1,6 @@
-start_clauses = None
 from Node import Node
+start_clauses = None
+total_runs = 1
 
 
 def set_clauses(clauses):
@@ -9,17 +10,23 @@ def set_clauses(clauses):
 
 def backtracking_search(node):
     global start_clauses
+    global total_runs
 
     # Reached terminal assignment
     if len(node.unassigned) == 0:
         return node
     next_var = get_next_selection(node)
+    # print(node.unassigned)
+    print(node.assigned)
+    print(next_var, '  total runs: ', total_runs)
+    print()
 
     # No valid selection remaining
     if next_var is None:
         return None
 
     for val in node.unassigned[next_var]:
+        total_runs += 1
         new_node = Node(node.unassigned, node.assigned,
                         next_var, val, start_clauses)
         result = backtracking_search(new_node)
@@ -35,6 +42,8 @@ def get_next_selection(node):
 
     # Minimum Remaining Values
     for var in node.unassigned:
+        if len(node.unassigned[var]) == 0:
+            return None
         if len(node.unassigned[var]) < current_rem_vals and len(node.unassigned[var]) > 0:
             current_var = var
             current_rem_vals = len(node.unassigned[var])
@@ -46,8 +55,6 @@ def get_next_selection(node):
                 current_var = var
                 current_rem_vals = len(node.unassigned[var])
                 current_degree = comp_degree
-        else:
-            return None
     return current_var
 
 
