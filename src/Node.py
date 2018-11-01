@@ -34,17 +34,14 @@ class Node:
             vars_assigned = 0
             for var in iter(self.assigned):
                 if int(var) in clause:
-                    # print('\n', int(var), ' is in ', clause, ' ?\n')
                     vars_assigned += 1
                 if -int(var) in clause:
-                    # print('\n', -int(var), ' is in ', clause, ' ?\n')
                     vars_assigned += 1
 
             # If every val in clause assigned but one
             unassigned_var = None
             any_already_true = False
             if clause_size - vars_assigned == 1:
-                # print('-----\nHERE: ', clause, '\n-----')
                 for clause_var in clause:
                     if str(abs(clause_var)) not in self.assigned:
                         unassigned_var = clause_var

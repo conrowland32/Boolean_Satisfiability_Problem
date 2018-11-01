@@ -1,11 +1,24 @@
 from Node import Node
+import json
+
 start_clauses = None
 total_runs = 1
+output_file = None
 
 
 def set_clauses(clauses):
     global start_clauses
     start_clauses = clauses
+
+
+def set_output(output):
+    global output_file
+    output_file = open("../results/example" + output + "_output.txt", "w")
+
+
+def close_output():
+    global output_file
+    output_file.close()
 
 
 def backtracking_search(node):
@@ -16,10 +29,15 @@ def backtracking_search(node):
     if len(node.unassigned) == 0:
         return node
     next_var = get_next_selection(node)
-    # print(node.unassigned)
-    print(node.assigned)
-    print(next_var, '  total runs: ', total_runs)
-    print()
+    if total_runs <= 250:
+        output_file.write(str(node.assigned))
+        if next_var is None:
+            output_file.write("\nNone    total runs: " +
+                              str(total_runs) + "\n\n")
+        else:
+            output_file.write("\n" + next_var + "    total runs: " +
+                              str(total_runs) + "\n\n")
+    print(total_runs)
 
     # No valid selection remaining
     if next_var is None:
